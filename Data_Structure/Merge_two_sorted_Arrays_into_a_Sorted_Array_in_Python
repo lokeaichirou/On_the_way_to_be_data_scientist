@@ -1,0 +1,41 @@
+Q. How to merge two sorted Arrays into a Sorted Array? (Python) 
+
+Answer:
+
+Let's look at the merge principle:
+Given two separate lists A and B ordered from least to greatest, construct a list C by: repeatedly comparing the least value of A to the least value of B, removing (or moving a pointer) the lesser value, and appending it onto C. when one list is exhausted, append the remaining items in the other list
+onto C in order. The list C is then also a sorted list.
+
+Complexity Analysis:
+Time Complexity: O(n) Space Complexity: O(n)
+This problem will have O(n) complexity at best.
+Implementation:
+
+def merge(left, right):
+    
+    result = []
+    i ,j   = 0, 0
+    
+    while i < len(left) and j < len(right):
+        
+        print('left[i]: {} right[j]: {}'.format(left[i], right[j]))
+        
+        if left[i] <= right[j]:
+
+            # Appending left[i] to the result, pointer moves to the right
+
+            result.append(left[i])
+            i += 1
+        
+        else:
+            # Appending right[j] to the result, pointer moves to the right
+            
+            result.append(right[j])
+            j += 1
+    
+    # One of the list is exhausted. Adding the rest of one of the lists.
+    
+    result += left[i:]
+    result += right[j:]
+    
+    return result
