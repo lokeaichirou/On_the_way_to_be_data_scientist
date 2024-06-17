@@ -1,0 +1,24 @@
+Find the room types that are searched by most people.
+Output the room type alongside the number of searches for it.
+
+If the filter for room types has more than one room type, consider each unique room type as a separate row.
+Sort the result based on the number of searches in descending order.
+
+
+WITH cte AS
+(SELECT distinct ds
+,id_user
+,ds_checkin
+,ds_checkout
+,value
+,n_searches
+FROM airbnb_searches cross apply string_split
+(filter_room_types, ','
+)
+WHERE value <> ''
+)
+SELECT value
+,SUM(n_searches) AS number_of_searches
+FROM cte
+GROUP BY value
+ORDER BY number_of_searches desc
